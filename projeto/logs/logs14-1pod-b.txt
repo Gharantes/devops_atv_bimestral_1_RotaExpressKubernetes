@@ -1,0 +1,55 @@
+﻿=== scale 1
+deployment.apps/rotas scaled
+
+deployment "rotas" successfully rolled out
+
+NAME                    READY   STATUS        RESTARTS   AGE
+rotas-fc7784c5c-knjpd   1/1     Terminating   0          5m22s
+rotas-fc7784c5c-lp25l   1/1     Running       0          49m
+rotas-fc7784c5c-msbkz   1/1     Terminating   0          111s
+
+=== contadores ANTES
+[pod/rotas-fc7784c5c-knjpd/rotas] aceito calculo_ms=646.7 total_aceitos=237 total_recusados=317
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=632.7 total_aceitos=524 total_recusados=1036
+[pod/rotas-fc7784c5c-msbkz/rotas] aceito calculo_ms=633.3 total_aceitos=70 total_recusados=79
+
+=== job
+job.batch/carga created
+
+pod/carga-zfzdc condition met
+
+=== top pods (durante a mediÃ§Ã£o)
+--- top 22:13:23
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   250m         14Mi            
+--- top 22:13:33
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   250m         14Mi            
+--- top 22:13:43
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   309m         14Mi            
+--- top 22:13:54
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   309m         14Mi            
+--- top 22:14:04
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   309m         14Mi            
+--- top 22:14:14
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   309m         14Mi            
+
+=== resumo k6
+    ✓ 'count==0' count=0
+    ✗ 'rate<0.01' rate=75.06%
+    falhas..................................................................: 75.06% 271 out of 361
+    latencia_ok.............................................................: avg=598.62ms med=596.65ms p(95)=657.8ms  max=695.38ms
+    rotas_ok................................................................: 90     1.119462/s
+      { scenario:medicao }..................................................: 0      0/s
+NAME    STATUS   COMPLETIONS   DURATION   AGE
+carga   Failed   0/1           99s        99s
+
+job.batch "carga" deleted from ops-lab namespace
+
+=== contadores DEPOIS
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=573.2 total_aceitos=629 total_recusados=1353
+

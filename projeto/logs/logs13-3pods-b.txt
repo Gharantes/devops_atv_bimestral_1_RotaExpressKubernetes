@@ -1,0 +1,70 @@
+﻿=== scale 3
+deployment.apps/rotas scaled
+
+Waiting for deployment "rotas" rollout to finish: 2 of 3 updated replicas are available...
+deployment "rotas" successfully rolled out
+
+NAME                    READY   STATUS    RESTARTS   AGE
+rotas-fc7784c5c-knjpd   1/1     Running   0          3m37s
+rotas-fc7784c5c-lp25l   1/1     Running   0          47m
+rotas-fc7784c5c-msbkz   1/1     Running   0          6s
+
+=== contadores ANTES
+[pod/rotas-fc7784c5c-knjpd/rotas] aceito calculo_ms=555.8 total_aceitos=172 total_recusados=253
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=592.8 total_aceitos=454 total_recusados=962
+[pod/rotas-fc7784c5c-msbkz/rotas] RotaExpress em http://localhost:8000
+
+=== job
+job.batch/carga created
+
+pod/carga-pgtk6 condition met
+
+=== top pods (durante a mediÃ§Ã£o)
+--- top 22:11:38
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+--- top 22:11:48
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+--- top 22:11:58
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+--- top 22:12:09
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+--- top 22:12:19
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+--- top 22:12:29
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-knjpd   78m          14Mi            
+rotas-fc7784c5c-lp25l   101m         14Mi            
+rotas-fc7784c5c-msbkz   159m         13Mi            
+
+=== resumo k6
+    ✓ 'count==0' count=0
+    ✗ 'rate<0.01' rate=51.24%
+    falhas..................................................................: 51.24% 185 out of 361
+    latencia_ok.............................................................: avg=616.87ms med=615.75ms p(95)=706.93ms max=798.23ms
+    rotas_ok................................................................: 176    2.18401/s
+      { scenario:medicao }..................................................: 0      0/s
+NAME    STATUS   COMPLETIONS   DURATION   AGE
+carga   Failed   0/1           99s        99s
+
+job.batch "carga" deleted from ops-lab namespace
+
+=== contadores DEPOIS
+[pod/rotas-fc7784c5c-msbkz/rotas] aceito calculo_ms=633.3 total_aceitos=70 total_recusados=79
+[pod/rotas-fc7784c5c-knjpd/rotas] aceito calculo_ms=646.7 total_aceitos=237 total_recusados=317
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=632.7 total_aceitos=524 total_recusados=1036
+

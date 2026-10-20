@@ -1,0 +1,46 @@
+﻿=== scale 1
+deployment.apps/rotas scaled
+
+deployment "rotas" successfully rolled out
+
+NAME                    READY   STATUS        RESTARTS   AGE
+rotas-fc7784c5c-5hrhq   1/1     Terminating   0          8m20s
+rotas-fc7784c5c-gtcmb   1/1     Terminating   0          8m20s
+rotas-fc7784c5c-lp25l   1/1     Running       0          42m
+
+=== contadores ANTES
+[pod/rotas-fc7784c5c-gtcmb/rotas] aceito calculo_ms=638.3 total_aceitos=69 total_recusados=64
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=612.5 total_aceitos=177 total_recusados=399
+[pod/rotas-fc7784c5c-5hrhq/rotas] aceito calculo_ms=700.5 total_aceitos=68 total_recusados=66
+
+=== job
+job.batch/carga created
+
+pod/carga-c8twj condition met
+
+=== top pods (durante a mediÃ§Ã£o)
+--- top 22:06:12
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   39m          14Mi            
+--- top 22:06:28
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   39m          14Mi            
+--- top 22:06:43
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-lp25l   371m         14Mi            
+
+=== resumo k6
+    ✓ 'count==0' count=0
+    ✗ 'rate<0.01' rate=75.06%
+    falhas..................................................................: 75.06% 271 out of 361
+    latencia_ok.............................................................: avg=573.4ms  med=559.47ms p(95)=641.24ms max=736.32ms
+    rotas_ok................................................................: 90     1.119601/s
+      { scenario:medicao }..................................................: 0      0/s
+NAME    STATUS   COMPLETIONS   DURATION   AGE
+carga   Failed   0/1           89s        89s
+
+job.batch "carga" deleted from ops-lab namespace
+
+=== contadores DEPOIS
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=554.4 total_aceitos=282 total_recusados=716
+

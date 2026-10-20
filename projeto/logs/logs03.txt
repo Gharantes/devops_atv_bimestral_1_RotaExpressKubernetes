@@ -1,0 +1,14 @@
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl apply -f k8s/deployment.yaml
+deployment.apps/rotas created
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl rollout status deployment/rotas>> 
+deployment "rotas" successfully rolled out
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get deployment,replicaset,pods
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/rotas   1/1     1            1           9s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/rotas-694c98487c   1         1         1       9s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/rotas-694c98487c-f7s8n   1/1     Running   0          9s
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 

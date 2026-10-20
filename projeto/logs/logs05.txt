@@ -1,0 +1,137 @@
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl apply -f k8s/deployment.yaml
+>> 
+deployment.apps/rotas configured
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl rollout status deployment/rotas>> 
+Waiting for deployment "rotas" rollout to finish: 1 old replicas are pending termination...
+deployment "rotas" successfully rolled out
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl rollout history deployment/rotas
+>> 
+deployment.apps/rotas 
+1         <none>
+2         <none>
+
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get pods
+NAME                     READY   STATUS        RESTARTS   AGE
+rotas-694c98487c-29mtw   1/1     Terminating   0          4m22s
+rotas-fc7784c5c-lp25l    1/1     Running       0          11s
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl describe pod -l app=rotas
+>> 
+Name:                      rotas-694c98487c-29mtw
+Namespace:                 ops-lab
+Priority:                  0
+Service Account:           default
+Node:                      ops-lab/192.168.58.2
+Start Time:                Mon, 19 Oct 2026 21:19:04 -0300
+Labels:                    app=rotas
+                           pod-template-hash=694c98487c
+Annotations:               <none>
+Status:                    Terminating (lasts <invalid>)
+Termination Grace Period:  30s
+IP:                        10.244.0.5
+IPs:
+  IP:           10.244.0.5
+Controlled By:  ReplicaSet/rotas-694c98487c
+Containers:
+  rotas:
+    Container ID:   containerd://f5ec5af5b0f571f71340943a85b9d8de90455eee8051e1b612e492c103930bad
+    Image:          rotas:1.0
+    Image ID:       sha256:59c3783d39f8fd8316d0075b9a406b927477df778b491d3c4349248ee65bf74b
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 19 Oct 2026 21:19:05 -0300
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-79j8h (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-79j8h:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m26s  default-scheduler  Successfully assigned ops-lab/rotas-694c98487c-29mtw to ops-lab
+  Normal  Pulled     4m25s  kubelet            Container image "rotas:1.0" already present on machine and can be accessed by the pod
+  Normal  Created    4m25s  kubelet            Container created
+  Normal  Started    4m25s  kubelet            Container started
+  Normal  Killing    9s     kubelet            Stopping container rotas
+
+
+Name:             rotas-fc7784c5c-lp25l
+Namespace:        ops-lab
+Priority:         0
+Service Account:  default
+Node:             ops-lab/192.168.58.2
+Start Time:       Mon, 19 Oct 2026 21:23:15 -0300
+Labels:           app=rotas
+                  pod-template-hash=fc7784c5c
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.6
+IPs:
+  IP:           10.244.0.6
+Controlled By:  ReplicaSet/rotas-fc7784c5c
+Containers:
+  rotas:
+    Container ID:   containerd://6296dc26fa1d6d6e1d5f4aff4e275d7e4ee570710a2145651d1a55f958688144
+    Image:          rotas:1.0
+    Image ID:       sha256:59c3783d39f8fd8316d0075b9a406b927477df778b491d3c4349248ee65bf74b
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 19 Oct 2026 21:23:15 -0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        500m
+      memory:     64Mi
+    Liveness:     http-get http://:8000/healthz delay=10s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:8000/readyz delay=0s timeout=1s period=5s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-58lts (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-58lts:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  15s                default-scheduler  Successfully assigned ops-lab/rotas-fc7784c5c-lp25l to ops-lab  Normal   Pulled     15s                kubelet            Container image "rotas:1.0" already present on machine and can be accessed by the pod
+  Normal   Created    15s                kubelet            Container created
+  Normal   Started    15s                kubelet            Container started
+  Warning  Unhealthy  14s (x2 over 14s)  kubelet            Readiness probe failed: Get "http://10.244.0.6:8000/readyz": dial tcp 10.244.0.6:8000: connect: connection refused
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 

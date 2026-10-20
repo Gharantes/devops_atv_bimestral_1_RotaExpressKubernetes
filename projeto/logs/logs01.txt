@@ -1,0 +1,17 @@
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> docker run -d --rm -p 8000:8000 --name 
+>> 
+c9655e5a994b5f1f910dc4b883788cbf1a683a27ba9feca9a628ef0fefbfd3c1
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> curl.exe "http://localhost:8000/api/rot
+>> 
+{"pontos": [[10, 10], [80, 20], [25, 70], [70, 85], [45, 25], [15, 45], [90, 55], [50, 95], [65, 45], [35, 55]], "ordem": [0, 5, 9, 2, 7, 3, 6, 8, 1, 4, 0], "distancia": 299.03, "paradas": 9, "pod": "c9655e5a994b", "calculo_ms": 286.1}
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> docker logs rotas-teste
+>> 
+RotaExpress em http://localhost:8000
+aceito calculo_ms=286.1 total_aceitos=1 total_recusados=0
+What's next:
+    View and search logs for all containers in one place
+    with Docker Desktop's Logs view. docker-desktop://dashboard/logs
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> docker stop rotas-teste
+>> 
+rotas-teste
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 

@@ -1,0 +1,61 @@
+﻿=== scale 2
+deployment.apps/rotas scaled
+
+Waiting for deployment "rotas" rollout to finish: 1 of 2 updated replicas are available...
+deployment "rotas" successfully rolled out
+
+NAME                    READY   STATUS    RESTARTS   AGE
+rotas-fc7784c5c-89kjc   1/1     Running   0          11s
+rotas-fc7784c5c-lp25l   1/1     Running   0          53m
+
+=== contadores ANTES
+[pod/rotas-fc7784c5c-89kjc/rotas] RotaExpress em http://localhost:8000
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=619.0 total_aceitos=734 total_recusados=1668
+
+=== job
+job.batch/carga created
+
+pod/carga-72rvr condition met
+
+=== top pods (durante a mediÃ§Ã£o)
+--- top 22:16:59
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   145m         13Mi            
+rotas-fc7784c5c-lp25l   237m         13Mi            
+--- top 22:17:09
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   145m         13Mi            
+rotas-fc7784c5c-lp25l   237m         13Mi            
+--- top 22:17:19
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   145m         13Mi            
+rotas-fc7784c5c-lp25l   237m         13Mi            
+--- top 22:17:29
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   145m         13Mi            
+rotas-fc7784c5c-lp25l   237m         13Mi            
+--- top 22:17:39
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   350m         14Mi            
+rotas-fc7784c5c-lp25l   329m         13Mi            
+--- top 22:17:49
+NAME                    CPU(cores)   MEMORY(bytes)   
+rotas-fc7784c5c-89kjc   350m         14Mi            
+rotas-fc7784c5c-lp25l   329m         13Mi            
+
+=== resumo k6
+    ✓ 'count==0' count=0
+    ✗ 'rate<0.01' rate=58.44%
+    falhas..................................................................: 58.44% 211 out of 361
+    latencia_ok.............................................................: avg=563.72ms med=554.12ms p(95)=638.08ms max=685.4ms 
+    rotas_ok................................................................: 150    1.868979/s
+      { scenario:medicao }..................................................: 0      0/s
+NAME    STATUS   COMPLETIONS   DURATION   AGE
+carga   Failed   0/1           100s       100s
+
+job.batch "carga" deleted from ops-lab namespace
+
+=== contadores DEPOIS
+[pod/rotas-fc7784c5c-89kjc/rotas] aceito calculo_ms=591.8 total_aceitos=89 total_recusados=123
+[pod/rotas-fc7784c5c-lp25l/rotas] aceito calculo_ms=638.7 total_aceitos=819 total_recusados=1793
+

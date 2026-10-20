@@ -1,0 +1,99 @@
+>> 
+deployment.apps/rotas image updatedeployment/rotas --timeout=60s
+>> 
+Waiting for deployment "rotas" rollout to finish: 1 old replicas are pending termination...
+error: timed out waiting for the condition
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get pods
+>> 
+NAME                    READY   STATUS             RESTARTS   AGE
+rotas-9687f8dc8-zs748   0/1     ImagePullBackOff   0          4m32s
+rotas-fc7784c5c-lp25l   1/1     Running            0          20m
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 
+
+
+kubectl describe pod rotas-9687f8dc8-zs748
+
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl describe pod rotas-9687f8dc8-zs748
+Name:             rotas-9687f8dc8-zs748
+Namespace:        ops-lab
+Priority:         0
+Service Account:  default
+Node:             ops-lab/192.168.58.2
+Start Time:       Mon, 19 Oct 2026 21:39:10 -0300
+Labels:           app=rotas
+                  pod-template-hash=9687f8dc8
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.8
+IPs:
+  IP:           10.244.0.8
+Controlled By:  ReplicaSet/rotas-9687f8dc8
+Containers:
+  rotas:
+    Container ID:   
+    Image:          rotas:1.1
+    Image ID:       
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        500m
+      memory:     64Mi
+    Liveness:     http-get http://:8000/healthz delay=10s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:8000/readyz delay=0s timeout=1s period=5s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rx8vg (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-rx8vg:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  5m39s                  default-scheduler  Successfully assigned ops-lab/rotas-9687f8dc8-zs748 to ops-lab
+  Normal   Pulling    2m41s (x5 over 5m38s)  kubelet            Pulling image "rotas:1.1"
+  Warning  Failed     2m40s (x5 over 5m37s)  kubelet            Failed to pull image "rotas:1.1": failed to pull and unpack image "docker.io/library/rotas:1.1": failed to resolve reference "docker.io/library/rotas:1.1": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     2m40s (x5 over 5m37s)  kubelet            Error: ErrImagePull
+  Warning  Failed     35s (x20 over 5m37s)   kubelet            Error: ImagePullBackOff
+  Normal   BackOff    22s (x21 over 5m37s)   kubelet            Back-off pulling image "rotas:1.1"
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 
+
+
+
+
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl rollout undo deployment/rotas
+>> 
+deployment.apps/rotas rolled back
+>> 
+NAME                    READY   STATUS    RESTARTS   AGE
+rotas-fc7784c5c-lp25l   1/1     Running   0          21m
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl rollout history deployment/rotas
+>> 
+deployment.apps/rotas 
+REVISION  CHANGE-CAUSE
+1         <none>
+3         <none>
+4         <none>
+
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 

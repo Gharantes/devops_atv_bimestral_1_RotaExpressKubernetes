@@ -1,0 +1,20 @@
+Passo 8.1 - limite do nó (2026-10-19)
+
+replicas=6  -> 6 Running, 0 Pending
+  kubectl describe node ops-lab:
+    Capacity/Allocatable cpu: 8   memory: 3925688Ki
+    Allocated requests cpu: 3950m (49%)   memory: 804Mi (20%)
+  docker inspect ops-lab: NanoCpus=3000000000 (3 CPUs)  Memory=3221225472 (3 GiB)
+  Host: Intel Core i5-10210U, 4 núcleos / 8 threads, 7.8 GB RAM
+
+  O contêiner do Minikube está limitado a 3 CPUs pelo Docker (cgroup), mas o kubelet
+  anuncia as 8 CPUs lógicas do host. O scheduler decide pelo valor anunciado (8),
+  então 6 Pods de 500m cabem "no papel".
+
+replicas=16 -> 14 Running, 2 Pending
+  Allocated requests cpu: 7950m (99%)   memory: 1316Mi (34%)
+  Evento do Pod Pending:
+    Warning FailedScheduling default-scheduler 0/1 nodes are available: 1 Insufficient cpu.
+    preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod.
+
+Depois: kubectl scale deployment/rotas --replicas=1

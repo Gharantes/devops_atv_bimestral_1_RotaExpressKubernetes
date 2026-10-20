@@ -1,0 +1,27 @@
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl apply -f k8s/service.yaml
+>> 
+service/rotas created
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get service rotas
+NAME    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+rotas   ClusterIP   10.105.177.165   <none>        8000/TCP   4s
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get endpointslices -l kubernete
+>> 
+NAME          ADDRESSTYPE   PORTS   ENDPOINTS    AGE
+rotas-h7ddg   IPv4          8000    10.244.0.6   6s
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get pods -o wide
+NAME                    READY   STATUS    RESTARTS   AGE     IP           NODE      NOMINATED NODE   READINESS GATES
+rotas-fc7784c5c-lp25l   1/1     Running   0          4m46s   10.244.0.6   ops-lab   <none>           <none>
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl run teste --rm -it --restart=Never --image=busybox:1.36 -- wget -qO- http://rotas:8000/healthz
+>> 
+All commands and output from this session will be recorded in container logs, including credentials and sensitive information passed through the command prompt.
+If you don't see a command prompt, try pressing enter.
+warning: couldn't attach to pod/teste, falling back to streaming logs: unable to upgrade connection: container teste not found in pod teste_ops-lab
+{"status": "ok", "pod": "rotas-fc7784c5c-lp25l"}pod "teste" deleted from ops-lab namespace
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 
+
+
+
+
+
+RESULT FROM PAGE:
+Distância: 299.03 unidades | Cálculo: 606.7 ms | Atendido por: rotas-fc7784c5c-lp25l

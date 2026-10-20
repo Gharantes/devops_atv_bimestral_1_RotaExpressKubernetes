@@ -1,11 +1,11 @@
 ﻿rotulo;rodada;replicas;taxa;rotas_ok;sucessos_por_s;falhas_pct;p95_latencia_ok_ms;dropped_iterations_medicao;status_job;cpu_observada_por_pod;distribuicao_aceitos_por_pod;observacoes
-piloto;calibracao;1;;;;;;;;;;
-3pods-a;A;3;;;;;;;;;;
-1pod-a;A;1;;;;;;;;;;
-2pods-a;A;2;;;;;;;;;;
-2pods-b;B;2;;;;;;;;;;
-3pods-b;B;3;;;;;;;;;;
-1pod-b;B;1;;;;;;;;;;
-1pod-c;C;1;;;;;;;;;;
-2pods-c;C;2;;;;;;;;;;
-3pods-c;C;3;;;;;;;;;;
+piloto;calibracao;1;6;90;1,50;75,06;627,82;0;Failed;;;taxa mantida em 6 para a série
+3pods-a;A;3;6;176;2,93;51,24;720,42;0;Failed;151m-173m (lido logo após o fim do teste);5hrhq 68/66 · gtcmb 69/64 · lp25l 71/83 (aceitos/recusados);top pods medido logo após o teste, não durante
+1pod-a;A;1;6;90;1,50;75,06;641,24;0;Failed;371m (pico durante a medição);lp25l 105/317 (aceitos/recusados);
+2pods-a;A;2;6;148;2,47;59,00;647,49;0;Failed;318m-327m (pico durante a medição);knjpd 86/123 · lp25l 88/125 (aceitos/recusados);
+2pods-b;B;2;6;148;2,47;59,00;642,96;0;Failed;324m-364m (pico durante a medição);knjpd 86/130 · lp25l 84/121 (aceitos/recusados);
+3pods-b;B;3;6;176;2,93;51,24;706,93;0;Failed;78m-159m (leitura não atualizou durante a medição);knjpd 65/64 · lp25l 70/74 · msbkz 70/79 (aceitos/recusados);metrics-server não atualizou a leitura de CPU na janela
+1pod-b;B;1;6;90;1,50;75,06;657,80;0;Failed;309m (pico durante a medição);lp25l 105/317 (aceitos/recusados);
+1pod-c;C;1;6;90;1,50;75,00;635,59;0;Failed;376m (pico durante a medição);lp25l 105/315 (aceitos/recusados);
+2pods-c;C;2;6;150;2,50;58,44;638,08;0;Failed;329m-350m (pico durante a medição);89kjc 89/123 · lp25l 85/125 (aceitos/recusados);
+3pods-c;C;3;6;180;3,00;50,13;670,08;0;Failed;120m-172m (leitura não atualizou durante a medição);89kjc 71/75 · hnp8s 69/71 · lp25l 71/65 (aceitos/recusados);metrics-server não atualizou a leitura de CPU na janela

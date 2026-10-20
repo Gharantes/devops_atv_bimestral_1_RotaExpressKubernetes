@@ -1,0 +1,66 @@
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get pods -o wide --show-labels
+>> 
+NAME                     READY   STATUS    RESTARTS   AGE     IP           NODE      NOMINATED NODE   READINESS GATES   LA
+rotas-694c98487c-f7s8n   1/1     Running   0          5m59s   10.244.0.4   ops-lab   <none>           <none>            app=rotas,pod-template-hash=694c98487c
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl describe pod rotas-694c98487c-f7s8n
+>> 
+Name:             rotas-694c98487c-f7s8n
+Namespace:        ops-lab
+Priority:         0
+Service Account:  default
+Node:             ops-lab/192.168.58.2
+Start Time:       Mon, 19 Oct 2026 21:12:54 -0300
+Labels:           app=rotas
+                  pod-template-hash=694c98487c
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.4
+IPs:
+  IP:           10.244.0.4
+Controlled By:  ReplicaSet/rotas-694c98487c
+Containers:
+  rotas:
+    Container ID:   containerd://510779b0fdfdb25a1623be62fca89a44ae176fdcf608c2a11083fcb3a9caec7d
+    Image:          rotas:1.0
+    Image ID:       sha256:59c3783d39f8fd8316d0075b9a406b927477df778b491d3c4349248ee65bf74b
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 19 Oct 2026 21:12:55 -0300
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-w955r (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-w955r:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  6m3s  default-scheduler  Successfully assigned ops-lab/rotas-694c98487c-f7s8n to ops-laby the pod
+  Normal  Created    6m2s  kubelet            Container created
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl logs deployment/rotas
+RotaExpress em http://localhost:8000
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl delete pod -l app=rotas
+>> 
+pod "rotas-694c98487c-f7s8n" deleted from ops-lab namespace
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> kubectl get pods -o wide
+NAME                     READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE   READINESS GATES
+rotas-694c98487c-29mtw   1/1     Running   0          52s   10.244.0.5   ops-lab   <none>           <none>
+PS C:\Users\acer\Desktop\DEV\devops_atv_bimestral_1_RotaExpressKubernetes\projeto> 
